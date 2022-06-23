@@ -1,26 +1,9 @@
 import React from "react";
-import api from "../../utils/Api";
 import Card from "../Card/Card";
+import {CurrentUserContext} from "../../context/CurrentUserContext";
+const Main = ({onEditAvatar, onEditProfile, onAddPlace,cards, onCardClick, onCardLike, onCardDelete}) => {
 
-const Main = ({onEditAvatar, onEditProfile, onAddPlace,onCardClick}) => {
-
-    const [userName,setUserName] = React.useState('');
-    const [userDescription,setUserDescription] = React.useState('');
-    const [userAvatar, setUserAvatar] = React.useState('');
-    const [cards, setCards] = React.useState([])
-
-    React.useEffect(() => {
-        Promise.all([ api.getInitialUser(), api.getInitialCards()])
-            .then(([userData,cards]) => {
-                setUserName(userData.name)
-                setUserDescription(userData.about)
-                setUserAvatar(userData.avatar)
-                setCards(cards)
-            })
-            .catch((err) => {
-                console.log(`Ошибка: ${err}`);
-            });
-    }, []);
+    const currentUser = React.useContext(CurrentUserContext);
 
     return (
         <main className="content">
@@ -31,17 +14,17 @@ const Main = ({onEditAvatar, onEditProfile, onAddPlace,onCardClick}) => {
                         aria-label="Изменить фото аватара"
                         className="profile__avatar-button">
                     </button>
-                    {userAvatar && (<img className ="profile__avatar" src={userAvatar} alt="Ваш аватар"  />)}
+                    {currentUser.avatar && (<img className ="profile__avatar" src={currentUser.avatar} alt="Ваш аватар"  />)}
                 </div>
                 <div className="profile__block">
-                    <h1 className="profile__name">{userName}</h1>
+                    <h1 className="profile__name">{currentUser.name}</h1>
                     <button
                         onClick={onEditProfile}
                         aria-label="Кнопка редактирования профиля"
                         className="profile__edit"
                         type="button">
                     </button>
-                    <p className="profile__job">{userDescription}</p>
+                    <p className="profile__job">{currentUser.about}</p>
                 </div>
                 <button
                     aria-label="Кнопка добавления фото"
@@ -58,6 +41,8 @@ const Main = ({onEditAvatar, onEditProfile, onAddPlace,onCardClick}) => {
                             key={card._id}
                             card={card}
                             onCardClick={onCardClick}
+                            onCardLike={onCardLike}
+                            onCardDelete={onCardDelete}
                         >
                         </Card>
                     ))}
