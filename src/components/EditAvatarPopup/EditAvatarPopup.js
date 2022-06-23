@@ -7,7 +7,6 @@ const EditAvatarPopup = ({isOpen, onClose, onUpdateAvatar}) => {
 
     function handleSubmit(e) {
         e.preventDefault();
-
         onUpdateAvatar({
             avatar: avatarRef.current.value,
         });

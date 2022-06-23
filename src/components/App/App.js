@@ -33,16 +33,14 @@ const App = () => {
             });
     }, []);
 
-    const handleCardLike = (card) => {
-        // Снова проверяем, есть ли уже лайк на этой карточке
+    function handleCardLike(card) {
         const isLiked = card.likes.some(i => i._id === currentUser._id);
-        // Отправляем запрос в API и получаем обновлённые данные карточки
         api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
             setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
         });
-    };
+    }
 
-    const handleCardDelete = (card) => {
+    function handleCardDelete(card){
         api.deleteCard(card._id)
             .then(() => {
                 setCards((cards) => cards.filter((item) => item._id !== card._id));
@@ -50,9 +48,9 @@ const App = () => {
             .catch((err) => {
                 console.log(`Ошибка: ${err}`);
             });
-    };
+    }
 
-    const handleUpdateUser = (data) => {
+    function handleUpdateUser(data){
       api.setUserInfo(data)
           .then((res) => {
               setCurrentUser(res);
@@ -63,9 +61,8 @@ const App = () => {
           })
     }
 
-    const handleUpdateAvatar = (newData) => {
-        api
-            .setUserAvatar(newData)
+    function handleUpdateAvatar(newData){
+        api.setUserAvatar(newData)
             .then((data) => {
                 setCurrentUser(data);
                 closeAllPopups();
@@ -73,7 +70,7 @@ const App = () => {
             .catch((err) => {
                 console.log(`Ошибка: ${err}`);
             })
-    };
+    }
 
     const handleEditProfileClick = () => {
         setIsEditProfilePopupOpen(true);
