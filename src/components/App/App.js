@@ -6,6 +6,8 @@ import PopupWithForm from "../PopupWithForm/PopupWithForm";
 import ImagePopup from "../ImagePopup/ImagePopup";
 import PopupConform from "../PopupConform/PopupConform";
 import {CurrentUserContext} from "../../context/CurrentUserContext";
+import EditProfilePopup from "../EditProfilePopup/EditProfilePopup";
+import EditAvatarPopup from "../EditAvatarPopup/EditAvatarPopup";
 import api from "../../utils/Api";
 
 const App = () => {
@@ -50,6 +52,29 @@ const App = () => {
             });
     };
 
+    const handleUpdateUser = (data) => {
+      api.setUserInfo(data)
+          .then((res) => {
+              setCurrentUser(res);
+              closeAllPopups();
+          })
+          .catch((err) => {
+              console.log(`Ошибка: ${err}`);
+          })
+    }
+
+    const handleUpdateAvatar = (newData) => {
+        api
+            .setUserAvatar(newData)
+            .then((data) => {
+                setCurrentUser(data);
+                closeAllPopups();
+            })
+            .catch((err) => {
+                console.log(`Ошибка: ${err}`);
+            })
+    };
+
     const handleEditProfileClick = () => {
         setIsEditProfilePopupOpen(true);
     }
@@ -90,38 +115,12 @@ const App = () => {
                 >
                 </Main>
                 <Footer/>
-                <PopupWithForm
-                    name="profile"
-                    title="Редактировать профиль"
-                    buttonText="Сохранить"
+                <EditProfilePopup
                     isOpen={isEditProfilePopupOpen}
                     onClose={closeAllPopups}
+                    onUpdateUser={handleUpdateUser}
                 >
-                    <input
-                        aria-label="Поле ввода имени"
-                        className="popup__line popup__line_type_name"
-                        id="name-form"
-                        placeholder="Ваше Имя"
-                        type="text"
-                        name="name"
-                        minLength="2"
-                        maxLength="40"
-                        required
-                    />
-                    <span id="name-form-error" className="error"></span>
-                    <input
-                        aria-label="Поле ввода описания"
-                        name="about"
-                        className="popup__line popup__line_type_info"
-                        id="job-form"
-                        placeholder="Описание"
-                        type="text"
-                        minLength="2"
-                        maxLength="200"
-                        required
-                    />
-                    <span id="job-form-error" className="error"></span>
-                </PopupWithForm>
+                </EditProfilePopup>
                 <PopupWithForm
                     name="photo"
                     title="Новое место"
@@ -151,25 +150,12 @@ const App = () => {
                     />
                     <span id="name-link-error" className="error"></span>
                 </PopupWithForm>
-                <PopupWithForm
-                    name="avatar"
-                    title="Обновить аватар"
-                    buttonText="Сохранить"
+                <EditAvatarPopup
                     isOpen={isEditAvatarPopupOpen}
                     onClose={closeAllPopups}
+                    onUpdateAvatar={handleUpdateAvatar}
                 >
-                    <input
-                        aria-label="Поле ввода названия аватара"
-                        className="popup__line"
-                        id="name-avatar"
-                        placeholder="Ссылка на Аватар"
-                        type="url"
-                        name="avatar"
-                        minLength="2"
-                        required
-                    />
-                    <span id="name-avatar-error" className="error"></span>
-                </PopupWithForm>
+                </EditAvatarPopup>
                 <PopupConform
                     //isOpen={isDeletePopupOpen}
                     //isClose={closeAllPopup}

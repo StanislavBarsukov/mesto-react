@@ -29,7 +29,7 @@ class Api {
         }).then(this._checkResponse);
     }
 
-    getUpdateUser(data) {
+    setUserInfo(data) {
         return fetch(`${this._url}/users/me`, {
             method:"PATCH",
             headers:this._headers,
@@ -40,7 +40,7 @@ class Api {
         }).then(this._checkResponse);
     }
 
-    updateAvatar(link) {
+    setUserAvatar(link) {
         return fetch(`${this._url}/users/me/avatar`, {
             method:"PATCH",
             headers:this._headers,
