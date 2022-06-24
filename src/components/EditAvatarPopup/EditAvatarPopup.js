@@ -2,15 +2,19 @@ import React from "react";
 import PopupWithForm from "../PopupWithForm/PopupWithForm";
 
 const EditAvatarPopup = ({isOpen, onClose, onUpdateAvatar}) => {
+    const avatarRef = React.useRef();
 
-    const avatarRef = React.useRef()
+    React.useEffect(() => {
+        avatarRef.current.value = ""
+    }, [ isOpen]);
 
-    function handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault();
+
         onUpdateAvatar({
             avatar: avatarRef.current.value,
         });
-    }
+    };
 
     return (
         <PopupWithForm
@@ -35,6 +39,7 @@ const EditAvatarPopup = ({isOpen, onClose, onUpdateAvatar}) => {
             <span id="name-avatar-error" className="error"></span>
         </PopupWithForm>
     )
+
 };
 
 export default EditAvatarPopup

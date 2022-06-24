@@ -4,29 +4,29 @@ import PopupWithForm from "../PopupWithForm/PopupWithForm";
 
 const EditProfilePopup = ({isOpen, onClose, onUpdateUser}) => {
     const currentUser = React.useContext(CurrentUserContext);
-    const [name, setName] = React.useState("")
-    const [about, setAbout] = React.useState("")
+    const [name, setName] = React.useState("");
+    const [about, setAbout] = React.useState("");
 
     React.useEffect(() => {
         setName(currentUser.name);
         setAbout(currentUser.about);
     }, [currentUser, isOpen]);
 
-    function handleChangeName(e) {
+    const handleChangeName = (e) =>{
         setName(e.target.value);
-    }
+    };
 
-    function handleChangeAbout(e){
+    const handleChangeAbout = (e) => {
         setAbout(e.target.value);
-    }
+    };
 
-    function handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault();
         onUpdateUser({
             name,
             about,
         });
-    }
+    };
 
     return (
         <PopupWithForm
@@ -47,7 +47,7 @@ const EditProfilePopup = ({isOpen, onClose, onUpdateUser}) => {
                  minLength="2"
                  maxLength="40"
                  required
-                 value={name ?? ''}
+                 value={name || ""}
                  onChange={handleChangeName}
              />
              <span id="name-form-error" className="error"></span>
@@ -61,7 +61,7 @@ const EditProfilePopup = ({isOpen, onClose, onUpdateUser}) => {
                  minLength="2"
                  maxLength="200"
                  required
-                 value={about ?? ''}
+                 value={about || ""}
                  onChange={handleChangeAbout}
              />
              <span id="job-form-error" className="error"></span>

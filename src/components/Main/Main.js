@@ -1,7 +1,10 @@
 import React from "react";
 import Card from "../Card/Card";
 import {CurrentUserContext} from "../../context/CurrentUserContext";
-const Main = ({onEditAvatar, onEditProfile, onAddPlace,cards, onCardClick, onCardLike, onCardDelete}) => {
+
+const Main = ({onEditAvatar, onEditProfile,
+                onAddPlace, cards, onCardClick,
+                onCardLike, onCardDelete }) => {
 
     const currentUser = React.useContext(CurrentUserContext);
 
@@ -50,6 +53,7 @@ const Main = ({onEditAvatar, onEditProfile, onAddPlace,cards, onCardClick, onCar
             </section>
         </main>
     )
+
 };
 
 export default Main

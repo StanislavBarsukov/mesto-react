@@ -11,7 +11,7 @@ class Api {
         }).then(this._checkResponse);
     }
 
-    getUpdateCard(data) {
+    setUpdateCard(data) {
         return fetch(`${this._url}/cards`, {
             method:"POST",
             headers:this._headers,
