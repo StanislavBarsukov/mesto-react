@@ -12,7 +12,7 @@ React
 Адаптивная верстка
 BEM Nested
 ### Ссылка на проект 
-https://stanislavbarsukov.github.io/mesto-react
+https://stanislavbarsukov.github.io/mesto-react/
 ### Стадия разработки
 Проект еще дополняется, планируется дополнение валидации и подтверждение при Вашем удалении фото.
 
